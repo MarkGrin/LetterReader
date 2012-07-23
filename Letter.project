@@ -9,6 +9,8 @@
   <Dependencies/>
   <VirtualDirectory Name="src">
     <File Name="main.cpp"/>
+    <File Name="Window.h"/>
+    <File Name="Image.h"/>
   </VirtualDirectory>
   <Settings Type="Executable">
     <GlobalSettings>
