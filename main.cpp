@@ -1,6 +1,7 @@
 # include <stdio.h>
 # include <conio.h>
 # include <windows.h>
+# include "Constants.h"
 # include "Window.h"
 
 int main (int amount, char** lines)
@@ -14,11 +15,21 @@ int main (int amount, char** lines)
 	
 	WNDCLASSEX windowClass;
 	
-	bool classRegisterResult = registerClassBoringStuff (&windowClass);
-	
-	printf ("\nClass:%d\n", classRegisterResult);
-	
-	
+	if ( !registerClassBoringStuff (&windowClass) )
+	{
+		printf ("\nError Window class register");
+		getch ();
+		return 1;
+	}
+	printf ("Class register success\n");
+	HWND hWindow = openWindow ();
+	if ( !hWindow )
+	{
+		printf ("\nError with window openning");
+		getch ();
+		return 1;
+	}
+	printf ("Window opening success");
 	printf ("\nPress any bla bla bla...\n");
 	getch ();
 	return 0;

@@ -1,8 +1,5 @@
-/*
-#include <windows.h>
-#include <string.h>
-#include <iostream>
-*/
+
+
 LRESULT CALLBACK
 MainWndProc (HWND hwnd, UINT nMsg, WPARAM wParam, LPARAM lParam)
 {
@@ -91,4 +88,18 @@ bool registerClassBoringStuff (WNDCLASSEXA* wndclass)
     wndclass->hCursor = LoadCursor (NULL, IDC_ARROW);
     wndclass->hbrBackground = (HBRUSH) NULL;
     return RegisterClassExA (wndclass);
+}
+
+HWND openWindow ()
+{
+	HWND result = CreateWindowA ("_____LETTER_READER______", "Letter Reader DEBUG     ", 
+								 WS_OVERLAPPEDWINDOW       , 0                         ,
+					             0                         , 300                       ,
+                                 300                       , NULL                      ,
+						         NULL                      , (HINSTANCE)5              ,
+                                 NULL);
+	if ( !result )
+	    return NULL;
+	ShowWindow (result, SW_SHOW);
+	return result;
 }
