@@ -2,7 +2,7 @@ namespace Screen
 {
 	namespace Size
 	{
-		int X = 100;
-		int Y = 100;
+		int X = 300;
+		int Y = 300;
 	};
 };

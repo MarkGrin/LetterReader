@@ -1,8 +1,12 @@
 # include <stdio.h>
 # include <conio.h>
 # include <windows.h>
+
 # include "Constants.h"
+
 # include "Window.h"
+
+HWND allWindowBoringStuff ();
 
 int main (int amount, char** lines)
 {
@@ -13,24 +17,30 @@ int main (int amount, char** lines)
 	
     printf ("\n");
 	
+	HWND hWindow = allWindowBoringStuff ();
+	
+	if ( !hWindow )
+	{
+		printf ("\nError with creating Window");
+		getch ();
+		return 1;
+	}
+	printf ("\nWindow openning success\n");
+	printf ("\n\nPress any bla bla bla...\n");
+	getch ();
+	return 0;
+}
+
+HWND allWindowBoringStuff ()
+{
 	WNDCLASSEX windowClass;
 	
 	if ( !registerClassBoringStuff (&windowClass) )
 	{
 		printf ("\nError Window class register");
-		getch ();
-		return 1;
+		return NULL;
 	}
 	printf ("Class register success\n");
-	HWND hWindow = openWindow ();
-	if ( !hWindow )
-	{
-		printf ("\nError with window openning");
-		getch ();
-		return 1;
-	}
-	printf ("Window opening success");
-	printf ("\nPress any bla bla bla...\n");
-	getch ();
-	return 0;
+	
+	return openWindow ();
 }
