@@ -1,2 +1,1 @@
-LetterReader
-============
+This programm will try to recognize symbol in picture by graph
