@@ -1,7 +1,7 @@
 LRESULT CALLBACK MainWndProc (HWND hwnd, UINT nMsg, WPARAM wParam, LPARAM lParam);
 bool registerClassBoringStuff (WNDCLASSEXA* wndclass);
 HWND openWindow ();
-
+void Message ();
 
 LRESULT CALLBACK MainWndProc (HWND hwnd, UINT nMsg, WPARAM wParam, LPARAM lParam)
 {
@@ -50,4 +50,11 @@ HWND openWindow ()
 	    return NULL;
 	ShowWindow (result, SW_SHOW);
 	return result;
+}
+void Message ()
+{
+	MSG messages;
+	GetMessage (&messages, NULL, 0, 0);
+	TranslateMessage(&messages);
+    DispatchMessage(&messages); 
 }
