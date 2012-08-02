@@ -109,7 +109,9 @@ void graphThread (void* ptr)
 	drawDC = GetDC (hWindow);
 	BitBlt (drawDC, 0, 0, Screen::Size::X, Screen::Size::Y, image, 0, 0, SRCCOPY);
 	ReleaseDC (hWindow, drawDC);
-	contrast (1, image);
+	printf ("\nREADY\n");
+	getch ();
+	contrast (image, 10);
 	drawDC = GetDC (hWindow);
 	BitBlt (drawDC, 0, 0, Screen::Size::X, Screen::Size::Y, image, 0, 0, SRCCOPY);
 	ReleaseDC (hWindow, drawDC);

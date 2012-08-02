@@ -1,4 +1,4 @@
-inline double getToughnes (COLORREF color)
+inline int getToughnes (COLORREF color)
 {
 	return GetRValue (color) +
 		   GetGValue (color) +
@@ -21,7 +21,7 @@ inline double getAverage (HDC dc)
 	}
 	return average;
 }
-inline void setContrast (HDC dc, double average)
+inline void setContrast (HDC dc, int toughness)
 {
 	COLORREF White = RGB (255, 255, 255);
 	COLORREF black = RGB (0  , 0  , 0  );
@@ -30,8 +30,8 @@ inline void setContrast (HDC dc, double average)
 	{
 		for (int y = 0; y < Screen::Size::Y; y++)
 		{
-			double currentToughnes = getToughnes (GetPixel (dc, x, y) );
-			if (average > currentToughnes)
+			int currentToughnes = getToughnes (GetPixel (dc, x, y) );
+			if (toughness < currentToughnes)
 				SetPixel (dc, x, y, White);
 			else
 				SetPixel (dc, x, y, black);
@@ -39,9 +39,7 @@ inline void setContrast (HDC dc, double average)
 	}
 }
 
-void contrast (double toughness, HDC dc)
+void contrast (HDC dc, int toughness)
 {
-	double average = getAverage (dc)*1;
-	printf ("\nAverage%g", average);
-	setContrast (dc, average);
+	setContrast (dc, toughness);
 }

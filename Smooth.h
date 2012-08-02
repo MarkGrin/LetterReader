@@ -1,23 +1,8 @@
 inline int getMediumColor (double Toughness, int one, int two)
 {
-	return two - (two - ((one + two)/2))*Toughness;
+	int result = two - (two - ((one + two)/2))*Toughness;
+	return (result > two) ? two : result;
 }
-inline void _smoothMove (int xstart, int xend, int ystart, int yend, int xspec, int yspec, int xit, int yit, HDC dc, double Toughness)
-{
-	for (int x = xstart; x < x!= xend; x += xit)
-	    {
-	    	for (int y = ystart; y != yit; y += yit)
-	    	{
-    			COLORREF  firstColor = GetPixel (dc, x    , y);
-    			COLORREF secondColor = GetPixel (dc, x + xspec, y + yspec);
-	    		
-	    		COLORREF mediumColor = RGB ( getMediumColor (Toughness, GetRValue (firstColor), GetRValue (secondColor)),
-	    		                             getMediumColor (Toughness, GetGValue (firstColor), GetGValue (secondColor)),
-                                             getMediumColor (Toughness, GetBValue (firstColor), GetBValue (secondColor)));
-	    	    SetPixel (dc, x + xspec, y + yspec, mediumColor);
-	    	}
-	    }
-} 
 bool smoothScreen (double Toughness, int times, HDC dc)
 {
 	for (int index = 0; index < times; index++)
