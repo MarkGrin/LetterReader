@@ -1,7 +1,6 @@
 inline int getMediumColor (double Toughness, int one, int two)
 {
-	int result = two - (two - ((one + two)/2))*Toughness;
-	return (result > two) ? two : result;
+	return two - (two - ((one + two)/2))*Toughness;
 }
 bool smoothScreen (double Toughness, int times, HDC dc)
 {

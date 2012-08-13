@@ -105,16 +105,21 @@ void graphThread (void* ptr)
 	HDC drawDC = GetDC (hWindow);
 	BitBlt (drawDC, 0, 0, Screen::Size::X, Screen::Size::Y, image, 0, 0, SRCCOPY);
 	ReleaseDC (hWindow, drawDC);
-	smoothScreen (1.2, 5, image);
+	smoothScreen (0.3, 5, image);
 	drawDC = GetDC (hWindow);
 	BitBlt (drawDC, 0, 0, Screen::Size::X, Screen::Size::Y, image, 0, 0, SRCCOPY);
 	ReleaseDC (hWindow, drawDC);
 	printf ("\nREADY\n");
 	getch ();
-	contrast (image, 10);
+	contrast (image, 5);
 	drawDC = GetDC (hWindow);
 	BitBlt (drawDC, 0, 0, Screen::Size::X, Screen::Size::Y, image, 0, 0, SRCCOPY);
 	ReleaseDC (hWindow, drawDC);
-	
+	drawDC = GetDC (hWindow);
+	bool result = lineThisHDC (image, drawDC);
+	BitBlt (drawDC, 0, 0, Screen::Size::X, Screen::Size::Y, image, 0, 0, SRCCOPY);
+	ReleaseDC (hWindow, drawDC);
+	printf ("\nLining - %d", result);
 	*endSwitchPtr = true;
 }
+//This is Fine 0000000000000000000000000000sfgjfsgjghkghlgjl
