@@ -2,8 +2,13 @@
 # include <conio.h>
 # include <windows.h>
 # include <process.h>
+# include <time.h>
 
 # include "Constants.h"
+
+# include "Logger.h"
+
+Logger _logger_ ("Log.h", "Error.h");
 
 # include "Window.h"
 # include "Image.h"
@@ -24,6 +29,8 @@ void graphThread (void* endSwitchPtr);
 
 int main (int amount, char** lines)
 {
+    _logger_.EnterNote ("Hello man", NULL, NULL);
+
 	printf ("lines:%d\n\n", amount);
 	
 	for (int index = 0; index < amount; index++)
