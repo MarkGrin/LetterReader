@@ -14,119 +14,49 @@ Logger _logger_ ("Log.h", "Error.h");
 # include "Image.h"
 # include "Graph.h"
 
-struct ThreadArguments
-{
-	bool* ptr;
-	HDC hdc;
-	HWND hWnd;
-};
-
-HWND allWindowBoringStuff ();
-void getFileName   (char* whereToWrite);
-HWND prepareWindow (int amount);
-
-void graphThread (void* endSwitchPtr);
+void mainFunction (HWND hWnd, HDC image);
 
 int main (int amount, char** lines)
 {
-    _logger_.EnterNote ("Hello man", NULL, NULL);
-
-	printf ("lines:%d\n\n", amount);
-	
-	for (int index = 0; index < amount; index++)
-	    printf ("line[%3d]:%s\n", index, lines[index]);
+    _logger_.EnterNote ("Programm started",
+                        Logger_Mode_Time, 0);
 		
-	HWND hWindow = prepareWindow (amount);
-	if ( !hWindow )
-		return 1;
-	
-    printf ("\n");
-	
 	HDC image = newImage (lines[1]);
 	if ( !image )
-	{
-		printf ("Image was not loaded\n");
-		getch ();
-		return 1;
-	}
-	bool endSwitch = false;
-	ThreadArguments arguments {&endSwitch, image, hWindow};
-	
-	long unsigned int thread_handle = _beginthread (graphThread, sizeof (ThreadArguments*), &arguments);
-	
-	if ( !thread_handle )
-	{
-		printf ("\nThead didn't started:ERROR\n");
-		getch ();
-		return 1;
-	}
-	
-	while ( !GetAsyncKeyState (VK_ESCAPE) && !endSwitch)
-	{
-		Message ();
-	}
-	printf ("\n\nPress any bla bla bla...\n");
-	getch ();
+        return 1;
+    HWND hwnd = createWindow ();
+    if ( !hwnd )
+        return 1;
+
+    startThread (mainFunction, image, hwnd);
+
+    DestroyWindow (hwnd);
+    deleteImage (image);
+    
+    printf ("\nFINISHED\n");
+    getch ();
+
+    _logger_.EnterNote ("Programm ended",
+                        Logger_Mode_Time, 0);
+
 	return 0;
 }
-HWND allWindowBoringStuff ()
-{
-	WNDCLASSEX windowClass;
-	
-	if ( !registerClassBoringStuff (&windowClass) )
-	{
-		printf ("\nError Window class register");
-		return NULL;
-	}
-	printf ("Class register success\n");
-	
-	return openWindow ();
-}
 
-HWND prepareWindow (int amount)
+void mainFunction (HWND hWindow, HDC image)
 {
-	HWND hWindow = allWindowBoringStuff ();
-	
-	if ( !hWindow )
-	{
-		printf ("\nError with creating Window");
-		getch ();
-		return NULL;
-	}
-	printf ("\nWindow openning success\n");
-	
-	if ( amount != 2 )
-	{
-		printf ("\nWrong arguments\n");
-		getch ();
-		return NULL;
-	}
-	return hWindow;
-}
+    HDC drawDC = GetDC (hWindow);
 
-void graphThread (void* ptr)
-{
-	bool* endSwitchPtr = ((ThreadArguments*)ptr)->ptr ;
-	HDC image          = ((ThreadArguments*)ptr)->hdc ;
-	HWND hWindow       = ((ThreadArguments*)ptr)->hWnd;
-	HDC drawDC = GetDC (hWindow);
-	BitBlt (drawDC, 0, 0, Screen::Size::X, Screen::Size::Y, image, 0, 0, SRCCOPY);
-	ReleaseDC (hWindow, drawDC);
+    draw (drawDC, image);
+
 	smoothScreen (0.3, 5, image);
-	drawDC = GetDC (hWindow);
-	BitBlt (drawDC, 0, 0, Screen::Size::X, Screen::Size::Y, image, 0, 0, SRCCOPY);
-	ReleaseDC (hWindow, drawDC);
-	printf ("\nREADY\n");
-	getch ();
+    draw (drawDC, image);
+
 	contrast (image, 5);
-	drawDC = GetDC (hWindow);
-	BitBlt (drawDC, 0, 0, Screen::Size::X, Screen::Size::Y, image, 0, 0, SRCCOPY);
-	ReleaseDC (hWindow, drawDC);
-	drawDC = GetDC (hWindow);
-	bool result = lineThisHDC (image, drawDC);
-	BitBlt (drawDC, 0, 0, Screen::Size::X, Screen::Size::Y, image, 0, 0, SRCCOPY);
-	ReleaseDC (hWindow, drawDC);
-	printf ("\nLining - %d", result);
-	*endSwitchPtr = true;
+    draw (drawDC, image);
+
+	lineThisHDC (image, drawDC);
+    draw (drawDC, image);
+
+    ReleaseDC (hWindow, drawDC);
 }
-//This is Fine 0000000000000000000000000000sfgjfsgjghkghlgjl
+

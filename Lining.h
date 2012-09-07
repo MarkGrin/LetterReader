@@ -51,7 +51,7 @@ inline bool  isDoubleSided      (char* infoList)
     int changes = 0;
     for (int i = 1; i < 8; i++)
     {
-        bool newIsWhite = infoList[i] != Lining::Point::BLAC;
+        bool newIsWhite = infoList[i] != Lining::Point::BLACK;
         if (newIsWhite != OldIsWhite)
         {
             OldIsWhite = !OldIsWhite;

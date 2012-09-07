@@ -15,8 +15,14 @@ HDC newImage (char* fileName)
 	SelectObject (result, (HGDIOBJ)handle);
 	return result;
 }
+
 bool deleteImage (HDC hdcToDelete)
 {
     DeleteObject ((void*)GetObject ((void*)hdcToDelete, 0 ,(void*) OBJ_BITMAP) );
     DeleteDC (hdcToDelete);
+}
+
+void draw (HDC drawDC, HDC image)
+{
+    BitBlt (drawDC, 0, 0, Screen::Size::X, Screen::Size::Y, image, 0, 0, SRCCOPY);
 }
