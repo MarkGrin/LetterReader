@@ -10,8 +10,7 @@
 namespace Logger
 {
 
-# include "Logger.h"
-# include "LoggerMethods.h"
+# include "Interface.h"
 
 };
 
