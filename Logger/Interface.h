@@ -7,6 +7,8 @@
 \*/
 class Interface
 {
+    public:
+
     bool EnterNote (unsigned int line  , const char* file,
                     const char* message, ...             );
 };
