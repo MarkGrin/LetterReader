@@ -7,6 +7,9 @@
 \*/
 class Interface
 {
+    Interface& operator = (const Foo&);
+    Interface             (const Foo&);
+    
     public:
 
     bool EnterNote (unsigned int line  , const char* file,
