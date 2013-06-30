@@ -12,6 +12,8 @@ namespace Logger
 
 # include "Interface.h"
 
+# include "File.h"
+
 };
 
 # endif /* LOGGER_CORE_H */
