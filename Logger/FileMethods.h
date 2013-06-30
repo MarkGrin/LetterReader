@@ -1,0 +1,6 @@
+# ifndef LOGGER_FILEMETHODS_H
+
+# define LOGGER_FILEMETHODS_H
+
+
+# endif /* LOGGER_FILEMETHODS_H */

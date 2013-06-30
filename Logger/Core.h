@@ -13,6 +13,7 @@ namespace Logger
 # include "Interface.h"
 
 # include "File.h"
+# include "FileMethods.h"
 
 };
 
