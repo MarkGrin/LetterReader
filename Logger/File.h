@@ -17,7 +17,7 @@ class File : public Interface
 
     char* FileName_;
 
-    ChangeFileName (const char* newName);
+    bool ChangeFileName (const char* newName);
 
     public:
 
